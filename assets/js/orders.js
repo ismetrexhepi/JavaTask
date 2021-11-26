@@ -6,7 +6,7 @@ let count=1;
 
 orders.forEach((e)=>{
     document.write(`
-    <div class="accordion-item">
+    <div class="accordion-item" style="width:50%;margin:0 auto;">
     <h2 class="accordion-header" id="flush-heading${count}">
   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${count}" aria-expanded="false" aria-controls="flush-collapse${count}">
     ORDER ID :${count}
