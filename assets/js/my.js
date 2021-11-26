@@ -194,18 +194,23 @@ function populatemenu() {
        <div class="items title text-center" >Menu</div>
             
        `;
-
-
+    let count=0;
+    
     for (a in menu) {
-        let c = `
+        let c = `<div style="border:1px solid red;">
                <div class="items text-center" id="${menu[a][0]}" onclick="pushorder('${menu[a][0]}','${menu[a][1]}','${menu[a][2]}','${menu[a][3]}')">
                 <input type="hidden" id="${menu[a][0]}">
                 <img src="./assets/img/${menu[a][3]}" alt="Hamburger">
                 <p class="mt-2 mb-0">${menu[a][1]}</p>
-                <span class="price"> ${menu[a][2]} &euro;</span>
+                <span class="price"> ${menu[a][2]} &euro;</span><br/>
+                </div>
+                <span><a href="#" class="btn" data-toggle="modal" data-target="#editmenu" onclick="updatemenu(${count})"><i class="bi bi-pencil-square"></i></a></span>
+                
             </div>
+            
                `;
         menuhtml += c;
+        count++;
 
 
 
@@ -365,3 +370,37 @@ for (var i = 0, max = radios.length; i < max; i++) {
         }
     }
 }
+
+function updatemenu(count){
+    console.log("menu update");
+    let body=document.querySelector("#insertfood");
+    let menu=JSON.parse(localStorage.getItem("menu"));
+
+    console.log(menu[count]);
+    // <input type="file" name="aa" id="image2" value="${menu[count][3]}"></input>
+    let aaa="ismeti";
+    body.innerHTML=`
+    <input type="text" placeholder="Name" id="name2" value="${menu[count][1]}"> 
+    <input type="number" name=""  placeholder="PRICE" id="price2" value="${menu[count][2]}">
+    
+    <a href="#" class="btn btn-primary" onclick="update2('${count}')">UPDATE</a>
+    `;
+
+    
+}
+
+function update2(id){
+   
+    const name = document.querySelector("#name2").value;
+    const price = document.querySelector("#price2").value;
+    // const image = document.querySelector("#image2").files[0].name;
+
+    menu[id][1]=name;
+    menu[id][2]=Number(price);
+
+    localStorage.setItem("menu",JSON.stringify(menu));
+    populatemenu();
+
+}
+
+
