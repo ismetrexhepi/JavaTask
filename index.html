@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- bootstrap cdn qe ka funksionu deri me 26 11  -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+      
+      
+      <!-- Thirrja e CSS  -->
+      <link rel="stylesheet" href="./assets/css/styles.css">
+      <!-- Thirrja e AXIOS  -->
+      <script src="node_modules/axios/dist/axios.js"></script>
+      
+      <title>Detyra Javascript</title>
+      <style>
+      </style>
+   </head>
+   <body>
+      <header>
+         <div class="container mb-3">
+            <h1 class="text-center">MyCafee</h1>
+         </div>
+      </header>
+      <!-- Trupi i 2 Formave -->
+      <div class="restaurant d-flex justify-content-around">
+         <!-- Pjesa per Order  -->
+         <div class="order col-4">
+            <div class="order-a">
+               <table style="width:100%">
+                  <thead style="border:1px solid">
+                     <tr>
+                        <th style="border:1px solid">#</th>
+                        <th style="border:1px solid">Name</th>
+                        <th style="border:1px solid">Price</th>
+                        <th style="border:1px solid">Units</th>
+                        <th style="border:1px solid">Total</th>
+                        <th style="border:1px solid">Photo</th>
+                     </tr>
+                  </thead>
+                  <tbody id="tbody">
+                  </tbody>
+                  <tfoot style="border:1px solid">
+                     <tr>
+                        <th style="border:1px solid">Total</th>
+                        <td id="totalprice" style="font-weight: bold;">0</td>
+                     </tr>
+                  </tfoot>
+               </table>
+            </div>
+         </div>
+         <!-- Pjesa per Meny -->
+         <div class="menu-sec">
+            <div class="container d-flex flex-column align-items-end">
+               <div class="foods" id="menu" >
+                  <div class="items title text-center">Menu</div>
+               </div>
+               <div>
+                  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalpayment" onclick="gettotalpayment()" >Payment</a>
+                  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#insertprod">Insert New Produts</a>
+                  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#viewsales">View Sales</a>
+               </div>
+               
+            </div>
+         </div>
+         
+      </div>
+
+      <!-- Modal per insertim te produktev-->
+      <div class="modal fade" id="insertprod" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" >
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Insert Product</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <div class="insert-foods">
+                     <input type="text" placeholder="Name" id="name"> 
+                     <input type="number" name=""  placeholder="PRICE" id="price">
+                     <input type="file" name="" id="image" >
+                     <a href="#" class="btn btn-primary" id="insert">Insert</a>
+                  </div>
+               </div>
+               <div class="modal-footer">
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!-- Modal per View Sale-->
+      <div class="modal fade" id="viewsales" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">View Sales</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <div id="totalsales">
+                  </div>
+               </div>
+               <div class="modal-footer">
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Modal per payment  -->
+      <div class="modal fade" id="modalpayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+         <div class="modal-content" >
+            <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Payment</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="insert-foods" id="payment">
+                  Total Payment
+               </div>
+               <div>
+                  <label for="cash" >Cash</label>
+                  <input type="text" id="cash" value="0">
+                  <label for="change" >Change</label>
+                  <input type="text" id="change" value="0" readonly min="0">
+                  <a href="#" class="btn btn-primary" onclick="finishpayment();orderpopulate() ">Finish Payment</a>
+               </div>
+               <form name="formA" class="cform">
+                  <label for="EUR" id="LEUR">EUR
+                  <input type="radio" name="currency" id="EUR" value="EUR"></label>
+                  <label for="USD" id="LUSD">USD
+                  <input type="radio" name="currency" id="USD" value="USD"></label>
+                  <label for="CHF" id="LCHF">CHF
+                  <input type="radio" name="currency" id="CHF" value="CHF"></label>
+                  <label for="GBP" id="LGBP">GBP
+                  <input type="radio" name="currency" id="GBP" value="GBP"></label>
+               </form>
+               <div class="modal-footer">
+               </div>
+            </div>
+         </div>
+      </div>
+     
+      <script src="assets/js/my.js"></script>
+     
+
+      <!-- cdn qe kan funksionu -->
+      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
+      <!-- deri me 26 11 -->
+
+      
+   </body>
+</html>

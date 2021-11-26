@@ -1,0 +1,70 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css");
+h1 {
+  color: red;
+}
+
+.foods {
+  width: 600px;
+  border: 1px solid red;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+}
+
+.foods .title {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1 / span 3;
+  border: 1px solid red;
+}
+
+.foods .items:hover {
+  cursor: pointer;
+}
+
+.foods img {
+  width: 80px;
+  height: 80px;
+  border-radius: 60%;
+}
+
+.actions {
+  visibility: hidden;
+}
+
+.bi {
+  cursor: pointer;
+}
+
+.orderimage {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.count {
+  border: 0;
+  width: 50px;
+}
+
+.count-enable {
+  background-color: aqua;
+  border-radius: 10px;
+}
+
+.cform {
+  margin-top: 5px;
+}
+
+.cform label {
+  padding: 0 5px;
+}
+
+.checked {
+  border: 1px solid blue;
+  border-radius: 5px;
+  background-color: #df7e8b;
+}
+/*# sourceMappingURL=styles.css.map */
