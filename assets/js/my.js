@@ -154,6 +154,16 @@ function finishpayment() {
     let sales = 0;
     sales = Number(localStorage.getItem("sales"));
 
+    let orders=[];
+    if (JSON.parse(localStorage.getItem("orders")) != null) {
+
+        orders = JSON.parse(localStorage.getItem("orders"));
+        // orders=localStorage.getItem("orders");
+    
+    
+    }
+
+
     sales += Number(localStorage.getItem("payment"));
 
     localStorage.setItem("sales", sales);
@@ -161,6 +171,8 @@ function finishpayment() {
 
     localStorage.removeItem("order", '');
     localStorage.setItem("orderid", 1);
+    orders.push(order);
+    localStorage.setItem("orders",JSON.stringify(orders));
     order = [];
     orderid = localStorage.getItem("orderid")
     orderpopulate();
