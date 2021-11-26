@@ -333,7 +333,7 @@ for (var i = 0, max = radios.length; i < max; i++) {
     radios[i].onclick = function() {
         switch (this.value) {
             case "EUR":
-                converted.value = Number(amount.value - payment);
+                converted.value = Number(amount.value - localStorage.getItem("payment"));
 
                 document.querySelector("#LEUR").classList.add("checked");
                 document.querySelector("#LUSD").classList.remove("checked");
@@ -342,7 +342,7 @@ for (var i = 0, max = radios.length; i < max; i++) {
 
                 break;
             case "USD":
-                converted.value = Math.floor(Number((amount.value / usd) - payment) * 100) / 100;
+                converted.value = Math.floor(Number((amount.value / usd) - localStorage.getItem("payment")) * 100) / 100;
 
 
                 document.querySelector("#LEUR").classList.remove("checked");
@@ -351,7 +351,7 @@ for (var i = 0, max = radios.length; i < max; i++) {
                 document.querySelector("#LGBP").classList.remove("checked");
                 break;
             case "CHF":
-                converted.value = Math.floor(Number((amount.value / chf) - payment) * 100) / 100;
+                converted.value = Math.floor(Number((amount.value / chf) - localStorage.getItem("payment")) * 100) / 100;
 
                 document.querySelector("#LEUR").classList.remove("checked");
                 document.querySelector("#LUSD").classList.remove("checked");
@@ -359,7 +359,7 @@ for (var i = 0, max = radios.length; i < max; i++) {
                 document.querySelector("#LGBP").classList.remove("checked");
                 break;
             case "GBP":
-                converted.value = Math.floor(Number((amount.value / gbp) - payment) * 100) / 100;
+                converted.value = Math.floor(Number((amount.value / gbp) - localStorage.getItem("payment")) * 100) / 100;
 
                 document.querySelector("#LEUR").classList.remove("checked");
                 document.querySelector("#LUSD").classList.remove("checked");
